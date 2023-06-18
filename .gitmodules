@@ -1,0 +1,3 @@
+[submodule "http-requests-php"]
+	path = http-requests-php
+	url = https://github.com/tmatsumor/http-requests-php.git
