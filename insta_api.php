@@ -24,7 +24,6 @@ class InstaAPI extends HttpRequests
         foreach($dif as $a){
             $r = array_values(array_filter($row, fn($x) => $x['id'] === $a))[0];// first matched el
             $fn($r);                                                // call a function in arguments
-            sleep(2);
         }
         file_put_contents(self::IDS_FILE, implode(',', array_slice($nid, 0, 10)));
     }
