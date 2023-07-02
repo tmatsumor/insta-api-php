@@ -4,14 +4,14 @@ require_once('http-requests-php/http_requests.php');
 class InstaAPI extends HttpRequests
 {
     const INSTA_URL = 'https://graph.instagram.com/';
-    const IDS_FILE  = 'insta_post_ids.txt';
+    const IDS_FILE  = __DIR__.'insta_post_ids.txt';
     private $token;
 
     public function __construct($long_lived_token) {
-        $this->get(self::INSTA_URL.'refresh_access_token',      // refresh long-lived-access-token
+        $this->get(self::INSTA_URL.'refresh_access_token',       // refresh long-lived-access-token
             ['grant_type'=>'ig_refresh_token','access_token'=>$long_lived_token]);
         $this->token = $long_lived_token;
-        touch(self::IDS_FILE);                              // create ids file if it doesn't exist
+        touch(self::IDS_FILE);                               // create ids file if it doesn't exist
     }
 
     public function fetchNewPost(Closure $fn) {
