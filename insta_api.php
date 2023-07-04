@@ -1,6 +1,8 @@
 <?php
 namespace tmatsumor\insta_api_php;
-require_once(__DIR__.'/http-requests-php/http_requests.php');
+if(!class_exists('\tmatsumor\http_requests_php\HttpRequests')){
+    require_once(__DIR__.'/http_requests_php/http_requests.php');
+}
 
 class InstaAPI extends \tmatsumor\http_requests_php\HttpRequests
 {
