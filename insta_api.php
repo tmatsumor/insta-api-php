@@ -1,10 +1,10 @@
 <?php
-require_once('http-requests-php/http_requests.php');
+require_once(__DIR__.'/http-requests-php/http_requests.php');
 
 class InstaAPI extends HttpRequests
 {
     const INSTA_URL = 'https://graph.instagram.com/';
-    const IDS_FILE  = __DIR__.'insta_post_ids.txt';
+    const IDS_FILE  = __DIR__.'/insta_post_ids.txt';
     private $token;
 
     public function __construct($long_lived_token) {
