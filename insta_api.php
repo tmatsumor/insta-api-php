@@ -20,6 +20,7 @@ class InstaAPI extends \tmatsumor\http_requests_php\HttpRequests
     public function fetchNewPost(\Closure $fn) {
         $res = $this->get(self::INSTA_URL.'me/media',                           // fetch media data
             ['fields'=>'id,media_type,media_url,caption,permalink','access_token'=>$this->token]);
+        if(count($res) === 0){ return; }             // if access_token is invalid, just do nothing
         $row = array_slice(json_decode($res[0], TRUE)['data'], 0, 10);                // fetch rows
         $nid = array_map(fn($x) => $x['id'], $row);                     // get current new post ids
         $oid = explode(',', trim(file_get_contents(self::IDS_FILE)));           // get old post ids
