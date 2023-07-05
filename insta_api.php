@@ -27,8 +27,8 @@ class InstaAPI extends \tmatsumor\http_requests_php\HttpRequests
         $dif = array_diff($nid, $oid);                                      // diff new and old ids
         foreach($dif as $a){
             $r = array_values(array_filter($row, fn($x) => $x['id'] === $a))[0];// first matched el
-            $fn($r);                                                // call a function in arguments
-        }
+            if($oid[0] != ""){ $fn($r); }                           // call a function in arguments
+        }                                                      // if old post ids file is not empty
         file_put_contents(self::IDS_FILE, implode(',', array_slice($nid, 0, 10)));
     }
 }
