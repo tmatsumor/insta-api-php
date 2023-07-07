@@ -24,8 +24,9 @@ class InstaAPI extends \tmatsumor\http_requests_php\HttpRequests
         $row = array_slice(json_decode($res[0], TRUE)['data'], 0, 10);                // fetch rows
         $nid = array_map(fn($x) => $x['id'], $row);                     // get current new post ids
         $oid = explode(',', trim(file_get_contents(self::IDS_FILE)));           // get old post ids
-        $dif = array_diff($nid, $oid);                                      // diff new and old ids
-        foreach($dif as $a){
+        $dif = array_merge(array_diff($nid, $oid));                         // diff new and old ids
+        for($i=0; $i<count($dif); $i++){ if($dif[$i] !== $nid[$i]){ $dif[$i] = null;  }}  // filter
+        foreach(array_filter($dif) as $a){                                  // remove null elements
             $r = array_values(array_filter($row, fn($x) => $x['id'] === $a))[0];// first matched el
             if($oid[0] != ""){ $fn($r); }                           // call a function in arguments
         }                                                      // if old post ids file is not empty
